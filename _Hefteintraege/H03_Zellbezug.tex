@@ -1,0 +1,33 @@
+\Hefteintrag{1.5}{Absolute und relative Zellbezüge}{
+\doppelseite{0.44}{0.54}{t}{
+Zieht oder kopiert man eine Formel in eine andere Zelle, so verändern sich die Adressen entsprechend der veränderten Zellposition. Man spricht von einem  \emphColA{\LoesungLuecke{relativen}{5cm} Zellbezug}.
+
+Möchte man dies verhindern, setzt man ein \emphColB{\$-Symbol} vor den entsprechenden Teil (Zeile oder Spalte) der Adresse und spricht von einem \emphColB{\LoesungLuecke{absoluten}{5cm} Zellbezug}. Dies ist auch für Spalte oder Zeile einzeln möglich.
+}{
+\centering
+\emphColB{Beispiel:}
+
+\vspace{0.1cm}
+\begin{tabular}{c|c|c}
+    \makecell{Art des \\ Bezugs von A1} & 
+    \makecell{Original\\Formel} 
+    & \makecell{2 nach unten \\ + 1 nach rechts\\verschoben}\\
+    \hline\hline
+    relativ & 
+    = A1 + C3 &
+    \LoesungLeer{=B3 + D5}{0pt}\\
+    \hline
+    \makecell{Spalte absolut\\Zeile relativ} &
+    = \$A1 + C3 & 
+    \LoesungLeer{=\$A3 + D5}{0pt}\\
+    \hline
+    \makecell{Spalte relativ\\Zeile absolut} & 
+    = A\$1 + C3 & 
+    \LoesungLeer{=B\$1 + D5}{0pt}\\
+    \hline
+    absolut & 
+    = \$A\$1 + C3 & 
+    \LoesungLeer{=\$A\$1 + D5}{0pt}\\
+\end{tabular}
+}
+}

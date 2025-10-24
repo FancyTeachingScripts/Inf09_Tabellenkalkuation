@@ -1,0 +1,34 @@
+\Hefteintrag{2}{Formeln und Parameter}{
+    \doppelseite{0.44}{0.53}{t}{%
+        \LoesungLuecke{Formeln}{6cm} berechnen Zellwerte automatisch. Sie beginnen immer mit einem \LoesungLuecke{Gleichheitszeichen (=)}{8cm} gefolgt von einem mathematischen Term oder vorgefertigten Funktionen (z.B. Mittelwert). Die \emphColA{Grundrechenarten} werden dargestellt als: \emphColA{\LoesungLuecke{+}{0.5cm} , \LoesungLuecke{-}{0.5cm} , \LoesungLuecke{*}{0.5cm} , \LoesungLuecke{/}{0.5cm}}
+        
+        In Formeln können feste Werte (z.B. für MwSt: 1,19) oder Werte anderer Zellen (als Adresse, z.B. B5) als Parameter verwendet werden. Die Berechnung des Ergebnisses nennt man auch Auswertung der Formel und läuft so ab:
+    }
+    {
+        \LoesungKaroTikz{
+            \pause\pause\pause\pause\pause\pause\pause
+            \node[box] (formula) {Formel};
+            \pause
+            \node[annotation, below left=0.2cm and -2.5cm of formula] (fexample) {z.B. =1,19*B5};
+            \pause
+            \node[dfddata, right=2.5cm of formula] (cellvalues) {Zellwerte};
+            \pause
+            \node[annotation, below right=0.2cm and -2.3cm of cellvalues] (cexample) {z.B. 100};
+            \pause
+            \node[dfddata, below=7cm of $(formula)!0.5!(cellvalues)$] (final) {Endergebnis};
+            \pause
+            \node[annotation, above right=0.1cm and -1.4cm of final] (fexample) {z.B. 119};
+            \pause 
+            \node[oval, text width=5cm, below=1.5cm of $(formula)!0.5!(cellvalues)$] (replace) {Adressen durch Zellwerte ersetzen};
+            \draw[arrow] (formula) -- (replace);
+            \draw[arrow] (cellvalues) -- (replace);
+            \pause
+            \node[annotation, below right=0.5cm and -2.5cm of replace] (rexample) {z.B. = 1,19*100};
+            \pause
+            \node[oval, below=1cm of replace] (calc) {Ergebnis berechnen};
+            \draw[arrow] (replace) -- (calc);
+            \pause
+            \draw[arrow] (calc) -- (final);
+        }{25}
+    }
+}

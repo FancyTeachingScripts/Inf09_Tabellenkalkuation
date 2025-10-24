@@ -1,0 +1,229 @@
+\Aufgabe{Übung: Funktionale Modellierung}{
+    Bei einer großen Party fallen nicht nur Getränkekosten an. Zeichne jeweils zwei Datenflussdiagramme: 
+    \begin{itemize}
+        \item Eines auf höchster Abstraktionsebene für Daten und Funktionen (genau eine Funktion pro Einzel-Diagramm).
+        \item Eines mit konkreten Rechenoperationen in Funktionen (2-stellige Funktionen) und Daten auf höchster Abstraktionsebene.
+    \end{itemize}
+}
+\UnterAufgabe{Übung: Funktionale Modellierung (a)}{
+    \large\textbf{Getränkegewinn} \normalsize \hspace{0.2cm}
+    Durch den Verkauf der Getränke nimmst du Geld ein. Am Ende der Party zählst du die Kassen und erhältst die Gesamteinnahmen. Aus diesem Betrag und den Ausgaben beim Lieferanten errechnest du den Gewinn.
+    
+    \doppelseite{0.5}{0.5}{t}{
+        \LoesungKaroTikz{
+            \node[dfddata, text width=2.2cm] (in) {Getränke Einnahmen};
+            \node[dfddata, text width=2.2cm, right=1cm of in] (out) {Getränke Ausgaben};
+
+            \node[oval, text width=4cm, below=1cm of $(in)!0.5!(out)$] (fkt) {Getränkegewinn berechnen};
+            
+            \node[dfddata, text width=4cm, below=0.7cm of fkt] (diff) {Getränke Gewinn};
+            
+            \draw[arrow] (in)--(fkt);
+            \draw[arrow] (out)--(fkt);
+                \draw[arrow] (fkt)--(diff);
+        }{18}
+    }{
+        \LoesungKaroTikz{
+            \node[dfddata, text width=2.2cm] (in) {Getränke Einnahmen};
+            \node[dfddata, text width=2.2cm, right=1cm of in] (out) {Getränke Ausgaben};
+
+            \node[oval, text width=4cm, below=1cm of $(in)!0.5!(out)$] (fkt) {-};
+            
+            \node[dfddata, text width=4cm, below=0.7cm of fkt] (diff) {Getränke Gewinn};
+            
+            \draw[arrow] (in)--(fkt);
+            \draw[arrow] (out)--(fkt);
+                \draw[arrow] (fkt)--(diff);
+        }{18}
+    }
+}
+
+\UnterAufgabe{Übung: Funktionale Modellierung (b)}{
+    \large\textbf{Anzahl Gäste} \normalsize \hspace{0.2cm}
+    Du hast vergessen, am Einlass eine Strichliste zu führen, daher kennst du nur deine Einnahmen durch Eintrittskarten und wie viel eine gekostet hat. Hier raus berechnest du die Anzahl der Gäste.
+    
+    \doppelseite{0.5}{0.5}{t}{
+        \LoesungKaroTikz{
+            \node[dfddata, text width=2.2cm] (in) {Einnahmen Eintrittskarten};
+            \node[dfddata, text width=2.2cm, right=1cm of in] (out) {Kosten pro Karte};
+
+            \node[oval, text width=4cm, below=1cm of $(in)!0.5!(out)$] (fkt) {Anzahl Gäste Berechnen};
+            
+            \node[dfddata, text width=4cm, below=0.7cm of fkt] (diff) {Anzahl Gäste};
+            
+            \draw[arrow] (in)--(fkt);
+            \draw[arrow] (out)--(fkt);
+                \draw[arrow] (fkt)--(diff);
+        }{16}
+    }{
+        \LoesungKaroTikz{
+            \node[dfddata, text width=2.2cm] (in) {Einnahmen Eintrittskarten};
+            \node[dfddata, text width=2.2cm, right=1cm of in] (out) {Kosten pro Karte};
+
+            \node[oval, text width=0.5cm, below=1cm of $(in)!0.5!(out)$] (fkt) {:};
+            
+            \node[dfddata, text width=4cm, below=0.7cm of fkt] (diff) {Anzahl Gäste};
+            
+            \draw[arrow] (in)--(fkt);
+            \draw[arrow] (out)--(fkt);
+                \draw[arrow] (fkt)--(diff);
+        }{16}
+    }
+}
+
+\UnterAufgabe{Übung: Funktionale Modellierung (c)}{
+    \large\textbf{Security} \normalsize \hspace{0.2cm}
+    Weil die Feier deiner besten Freundin beim letzten Mal eskaliert ist, engagierst du einen Sicherheitsdienst. Die Anzahl der benötigten Security-Mitarbeiter berechnest du aus der Anzahl an Gästen und einem Personenschlüssel. Im Anschluss werden aus der Anzahl an Mitarbeitern und den Kosten pro Mitarbeiter die Security-Kosten berechnet.\\
+    \doppelseite{0.5}{0.5}{t}{
+        \LoesungKaroTikz{
+            \node[dfddata, text width=2.2cm] (guests) {Anzahl Gäste};
+            \node[dfddata, text width=2.2cm, right=0.5cm of guests] (key) {Personen- schlüssel};
+            \node[dfddata, text width=3cm, right=0.5cm of key] (cost) {Kosten pro Mitarbeiter:in};
+
+            \node[oval, text width=4cm, below=1cm of key] (fkt) {Securitykosten berechnen};
+            
+            \node[dfddata, text width=4cm, below=0.7cm of fkt] (result) {Securitykosten};
+            
+            \draw[arrow] (guests)--(fkt);
+            \draw[arrow] (key)--(fkt);
+            \draw[arrow] (cost)--(fkt);
+                \draw[arrow] (fkt)--(result);
+        }{28}
+    }{
+        \LoesungKaroTikz{
+            \node[dfddata, text width=2.2cm] (guests) {Anzahl Gäste};
+            \node[dfddata, text width=2.2cm, right=0.5cm of guests] (key) {Personen- schlüssel};
+            \node[dfddata, text width=3cm, right=0.5cm of key] (cost) {Kosten pro Mitarbeiter:in};
+            
+            
+            \node[oval, text width=0.5cm, below=1cm of $(guests)!0.5!(key)$] (fkt1) {:};
+            \node[dfddata, text width=0.5cm, right=0.5cm of fkt1] (stellen) {0};
+            
+            \node[oval, text width=3cm, below=0.5cm of fkt1] (count) {Aufrunden};
+            
+            \node[oval, text width=0.5cm, right=0.5cm of count] (fkt2) {*};
+            
+            \node[dfddata, text width=4cm, below=0.7cm of fkt2] (result) {Securitykosten};
+            
+            
+            
+            \draw[arrow] (guests)--(fkt1);
+            \draw[arrow] (key)--(fkt1);
+            \draw[arrow] (fkt1)--(count);
+            \draw[arrow] (stellen)--(count);
+            \draw[arrow] (count)--(fkt2);
+            \draw[arrow] (cost)--(fkt2);
+                \draw[arrow] (fkt2)--(result);
+        }{28}
+    }
+}
+
+
+\UnterAufgabe{Übung: Funktionale Modellierung (d)}{
+    \large\textbf{Gewinn pro Gast} \normalsize \hspace{0.2cm}
+    Aus dem Getränke-Gewinn, den Einnahmen aus Eintrittskarten, den Security-Kosten und der Gästeanzahl berechnest du den durchschnittlichen Gewinn pro Gast.
+    
+    
+    \doppelseite{0.5}{0.5}{t}{
+        \LoesungKaroTikz{
+            \node[dfddata, text width=2.2cm] (drinks) {Gewinn Getränke};
+            \node[dfddata, text width=2.2cm, above right=0.25cm and -0.5cm of drinks] (tickets) {Einnahmen Tickets
+            };
+            \node[dfddata, text width=2.2cm, right=0.4cm of tickets] (secu) {Security-kosten};
+            \node[dfddata, text width=2.2cm, below right=0.25cm and -0.5cm of secu] (guests) {Anzahl Gäste};
+
+            \node[oval, text width=4cm, below=2.1cm of $(tickets)!0.5!(secu)$] (fkt1) {Gewinn pro Gast berechnen};
+            
+            \node[dfddata, text width=4cm, below=0.7cm of fkt1] (diff) {Gewinn pro Gast};
+            
+            \draw[arrow] (drinks)--(fkt1);
+            \draw[arrow] (tickets)--(fkt1);
+            \draw[arrow] (secu)--(fkt1);
+            \draw[arrow] (guests)--(fkt1);
+                \draw[arrow] (fkt1)--(diff);
+        }{30}
+    }{
+        \LoesungKaroTikz{
+            \node[dfddata, text width=2.2cm] (drinks) {Gewinn Getränke};
+            \node[dfddata, text width=2.2cm, right=0.25cm of drinks] (tickets) {Einnahmen Tickets
+            };
+            \node[oval, text width=0.5cm, below=1cm of $(drinks)!0.5!(tickets)$] (fkt1) {+};
+            
+            \node[dfddata, text width=2.2cm, right=0.25cm of fkt1] (secu) {Security-kosten};
+            \node[oval, text width=0.5cm, below=1cm of $(fkt1)!0.5!(secu)$] (fkt2) {-};
+            
+            \node[dfddata, text width=2.2cm, right=0.25cm of fkt2] (guests) {Anzahl Gäste};
+            \node[oval, text width=0.5cm, below=1cm of $(fkt2)!0.5!(guests)$] (fkt3) {:};
+            
+            \node[dfddata, text width=4cm, below=0.7cm of fkt3] (diff) {Gewinn pro Gast};
+            
+            \draw[arrow] (drinks)--(fkt1);
+            \draw[arrow] (tickets)--(fkt1);
+            \draw[arrow] (secu)--(fkt2);
+            \draw[arrow] (fkt1)--(fkt2);
+            \draw[arrow] (guests)--(fkt3);
+            \draw[arrow] (fkt2)--(fkt3);
+            \draw[arrow] (fkt3)--(diff);
+        }{30}
+    }
+}
+    
+\UnterAufgabe{Übung: Funktionale Modellierung (e)}{
+    \large\textbf{Gesamt-Diagramm} \normalsize \hspace{0.2cm}
+    Füge die abstrakten Einzeldiagramme zu einem abstrakten verketteten Datenflussdiagrammen zusammen. Lasse keine Funktionen aber alle nicht benötigten Datenblöcke weg!
+    
+    \LoesungKaroTikz{
+        %%%%%%%%%%%%%%%%%%%%%%%%%%%
+        \node[dfddata, text width=2.2cm] (drinksIn) {Getränke Einnahmen};
+        \node[dfddata, text width=2.2cm, right=0.5cm of drinksIn] (drinksOut) {Getränke Ausgaben};
+        %%%%%
+        \node[dfddata, text width=2.2cm, right=0.5cm of drinksOut] (tickets) {Einnahmen Eintrittskarten};
+        \node[dfddata, text width=2.2cm, right=1cm of tickets] (costPerTicket) {Kosten pro Karte};
+        %%%%%
+        \node[dfddata, text width=2.2cm, right=1cm of costPerTicket] (key) {Personen- schlüssel};
+        \node[dfddata, text width=3cm, right=0.5cm of key] (cost) {Kosten pro Mitarbeiter:in};
+        %%%%%
+        \node[oval, minimum width=0.3cm, minimum height=0.3cm, below=0.5cm of tickets] (ticketsCirc) {};
+        \draw[arrow] (tickets)--(ticketsCirc);
+        %%%%%
+        \node[oval, text width=4cm, below=1.5cm of $(drinksIn)!0.5!(drinksOut)$] (fktDrinks) {Getränkegewinn berechnen};
+        \draw[arrow] (drinksIn)--(fktDrinks);
+        \draw[arrow] (drinksOut)--(fktDrinks);    
+        %%%%%
+        \node[oval, text width=3cm, below=0.5cm of costPerTicket] (guestsFkt) {Anzahl Gäste Berechnen};
+        \draw[arrow] (ticketsCirc)--(guestsFkt);
+        \draw[arrow] (costPerTicket)--(guestsFkt);
+        \node[oval, minimum width=0.3cm, minimum height=0.3cm, below=0.5cm of guestsFkt] (guestsCirc) {};
+        \draw[arrow] (guestsFkt)--(guestsCirc); 
+        %%%%%
+        \node[oval, text width=4cm, below=3.5cm of $(key)!0.5!(cost)$] (fktSecu) {Securitykosten berechnen};
+        \draw[arrow] (guestsCirc)--(fktSecu);
+        \draw[arrow] (key)--(fktSecu);
+        \draw[arrow] (cost)--(fktSecu);
+        %%%%%
+        \node[oval, text width=4cm, below=3cm of drinksOut] (fkt1) {Gewinn pro Gast berechnen};
+        %%%%% 
+        %%%%%        
+        %%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+    
+        %%%%%%%%%%%%%%%%%%%%%%%%%%%
+        
+
+            
+            
+        %%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+        %%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+        
+        \node[dfddata, text width=4cm, below=0.7cm of fkt1] (diff) {Gewinn pro Gast};
+        
+        \draw[arrow] (fktDrinks)--(fkt1);
+        \draw[arrow] (ticketsCirc)--(fkt1);
+        \draw[arrow] (fktSecu)--(fkt1);
+        \draw[arrow] (guestsCirc)--(fkt1);
+        \draw[arrow] (fkt1)--(diff);
+    }{50}
+}

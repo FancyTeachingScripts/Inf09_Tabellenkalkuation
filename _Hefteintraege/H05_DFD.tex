@@ -1,0 +1,37 @@
+\Hefteintrag{1}{Datenflussdiagramm}{
+    \doppelseite{0.47}{0.47}{t}{
+        Datenflussdiagramme stellen die \emphColA{Ein- und Ausgaben von Funktionen} übersichtlich dar. Man nutzt sie, um die Umsetzung eines Programms zu \emphColA{planen oder} im Nachhinein zu \emphColA{dokumentieren}. Datenflussdiagramme bestehen aus diesen Elementen:
+
+        \vspace{0.3cm}
+        \LoesungKaroTikz{
+                \node[dfddata, text width=4cm] (werte) {Werte (Eingaben/Ausgaben)};
+
+                \node[oval, text width=2.2cm, right=0.2cm of werte] (fkt) {Funktionen};
+                
+                \node[minimum width=1pt, below=1cm of werte] (d1) {Datenflüsse: };
+                \node[minimum width=1pt, right=1cm of d1] (d2) { };
+                \draw[arrow] (d1)--(d2);
+        }{16}
+    }{
+        \emphColA{Schema eines DFDs mit Platzhaltern:}
+
+        \vspace{0.2cm}
+        \LoesungKaroTikz{
+            \node[dfddata, text width=1.7cm, minimum width=1pt] (e1) {Eingabe 1};
+            \node[dfddata, text width=0.5cm, minimum height=8pt, right=0.2cm of e1] (e2) {...};
+            \node[text width=0.5cm, minimum width=1pt, minimum height=8pt, right=0.2cm of e2] (edots) {...};
+            \node[dfddata, text width=0.5cm, minimum height=8pt, right=0.2cm of edots] (e3) {...};
+            \node[dfddata, text width=1.7cm, right=0.2cm of e3] (eN) {Eingabe n};
+
+            \node[oval, text width=2.2cm, below=1cm of edots] (fkt) {Funktion};
+            
+            \node[dfddata, below=1cm of fkt] (final) {Ausgabe (genau eine!)};
+            
+            \draw[arrow] (e1) -- (fkt);
+            \draw[arrow] (e2) -- (fkt);
+            \draw[arrow] (e3) -- (fkt);
+            \draw[arrow] (eN) -- (fkt);
+            \draw[arrow] (fkt) -- (final);
+        }{22}
+    }
+}

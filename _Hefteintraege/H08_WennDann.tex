@@ -1,0 +1,63 @@
+\Aufgabe[40]{Wenn-Dann-Funktion}{
+
+%\vspace{0.5cm}
+\begin{enumerate}
+    \item Öffne Studyflix: \UrlAndCode{bycs.link/studyflix-excel-if}
+    \item Schaue das Video und baue die beschriebene Tabelle in BYCS Drive nach.
+    \item Fasse den Artikel/das Video in einem kurzen \emphColA{Hefteintrag} zusammen.
+    \item Ergänze mit Hilfe deines Buchs, die Darstellung der Wenn-Dann-Funktion im Datenflussdiagramm.
+\end{enumerate}
+
+}
+\Hefteintrag{1}{Wenn-Dann-Funktion}{
+\ifbeamer\else\vspace{0.7cm}\fi
+    \LoesungKaro{
+        \doppelseite{0.55}{0.35}{t}{
+            Mit der  \emphColA{Wenn-Dann-Funktion} können anhand einer Bedingung verschiedene Werte verwendet werden. 
+            
+            \vspace{0.2cm}
+            Eine Bedingung kann z.B. 
+            \begin{itemize}
+                \item \emphColA{Gleichheit zweier Werte (=)} oder
+                \item eine \emphColB{Größer-/Kleiner-Bedingung (<,>,<=,>=)}
+            \end{itemize} 
+            prüfen. 
+            
+            \vspace{0.1cm}
+            Wenn die \emphColA{Bedingung} als \emphColA{wahr} ausgewertet \emphColA{(=erfüllt)} wird, wird der \emphColB{Dann-Teil in die Zelle eingefügt}, ansonsten der \emphColC{Sonst-Teil}.
+            
+            \vspace{0.1cm}
+            In Excel gibt man die Funktion so ein:
+            
+            \vspace{0.2cm}
+            Schema:~~~~=WENN(\emphColA{Bedingung}  ; \emphColB{Dann} ; \emphColC{Sonst})
+            
+            Beispiel:~~~~=WENN(\emphColA{D5 < 10} ; \emphColB{„kleiner als 10“} ; \emphColC{„größer oder gleich 10“})
+        }{
+            Bei der Darstellung im \emphColA{Datenflussdiagramm} ist die \emphColA{Reihenfolge} (von links nach rechts), mit der die \emphColA{Pfeile} an der Funktion ankommen, \emphColA{wichtig}:
+
+            \vspace{0.2cm}
+            \begin{tikzpicture}[
+                % Define styles
+                box/.style={rectangle, draw=\LFarbe, very thick, rounded corners, minimum width=3cm, minimum height=1cm,  text centered, text=\LFarbe, font=\large},
+                oval/.style={ellipse, draw=\LFarbe, very thick, minimum width=3cm, minimum height=1.5cm, text centered, text=\LFarbe, font=\large},
+                arrow/.style={-Stealth, thick, draw=\LFarbe},
+                annotation/.style={text=colC!90!\LFarbe, font=\large}
+            ]
+            \node[dfddata, text width=1.8cm, minimum width=1pt] (e1) {Bedingung};
+            \node[dfddata, text width=1.5cm, right=0.3cm of e1, minimum width=1pt] (e2) {Dann-Wert};
+            \node[dfddata, text width=1.5cm, right=0.3cm of e2] (eN) {Sonst-Wert};
+        
+            \node[oval, text width=3cm, below=1cm of e2] (fkt) {WENN};
+        
+            \node[dfddata, below=0.75cm of fkt] (final) {Ausgabe};
+            
+            \draw[arrow] (e1) -- (fkt);
+            \draw[arrow] (e2) -- (fkt);
+            %\draw[arrow] (e3) -- (fkt);
+            \draw[arrow] (eN) -- (fkt);
+            \draw[arrow] (fkt) -- (final);
+            \end{tikzpicture}
+        }
+    }{40}
+}

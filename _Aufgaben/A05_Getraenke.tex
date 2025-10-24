@@ -1,0 +1,265 @@
+\Aufgabe{Getränkekalkulation}
+{
+    \AttachVlg{\faFilePdfO}{_Aufgaben/resources/A05_Stationen.pdf}
+    Ihr macht die Kalkulation für eine große Party mit einer Kalkulationstabelle. Da so eine Planung aufwendig ist, wird sie auf mehrere Personen aufgeteilt.
+    \begin{enumerate}
+        \item Bildet mindestens 4 Gruppen (A1,A2,B1,B2 - manche kann es doppelt geben) und nehmt euch gemeinsam einen Zettel. Eure Aufgabenstellung erhaltet ihr von der Lehrkraft \Loesung{(oben als Dateianhang)}
+        \item Zeichnet zu eurer Aufgabenstellung \emphColB{pro Schritt ein Datenflussdiagramm} (mit hoher Abstraktion)\\
+            \hinweis{Hohe Abstraktion bedeutet keine konkreten Rechnungen, sondern beschreibende Funktionsnamen.}\\
+            \hinweis{Wenn die gleiche Berechnung für mehrere Getränke gemacht wird, zeichnet hierfür mehrere Diagramme.}
+        \item Tauscht euer Diagramm mit der anderen Gruppe eures Buchstabens (also z.B. tauschen A1 und A2) und setzt dieses dann mit der Tabellensoftware in BYCS-Drive um. \begin{itemize}
+        \item Färbt auch dieses Mal wieder die Zellen anhand des Typs (Nutzereingabe, Formel, Beschriftung) ein.
+            \item Zum Testen eurer Formeln könnt ihr einfach Preise und Gäste-Anzahlen erfinden.
+            %\item Beantwortet außerdem folgende Fragen:
+        \end{itemize}
+    \end{enumerate}
+
+    Wieso ist es sinnvoll, zuerst ein Diagramm zu zeichnen?
+
+    \LoesungLine{z.B. Besserer Überblick, Aufbau einer Intuition für den Kontext, geringere Gefahr vor lauter Syntax den Überblick zu verlieren, 'Divide-and-Conquer', erst Planen, dann Umsetzen reduziert Fehler}{2}
+
+
+    Welche Eigenschaften eines Diagramms machen die Umsetzung leichter?
+
+    \LoesungLine{aussagekräftige Namen für Werte auch ohne den Kontext zu kennen, beschreibende Funktionsnamen statt nur Rechenoperationen, \dots}{2}
+}
+\UnterAufgabe{Getränkekalkuation A1}{
+
+    \ifbeamer\else
+    \Loesung{\textbf{Gruppe A1}}
+    \fi
+    
+    \LoesungTikz{
+            \node[dfddata, text width=2cm, minimum width=1pt] (e1) {Preis Kasten Spezi};
+           % \node[dfddata, text width=0.5cm, minimum height=8pt, right=0.2cm of e1] (e2) {...};
+            %\node[text width=0.5cm, minimum width=1pt, minimum height=8pt, right=0.2cm of e2] (edots) {...};
+            %\node[dfddata, text width=0.5cm, minimum height=8pt, right=0.2cm of edots] (e3) {...};
+            \node[dfddata, text width=3cm, right=0.2cm of e1] (eN) {Anzahl Flaschen pro Kasten Spezi};
+
+            \node[oval, text width=3.5cm, below=1.5cm of $(e1)!0.5!(eN)$] (fkt) {Flaschenpreis Spezi berechnen};
+            
+            \node[dfddata, below=0.5cm of fkt] (final) {Flaschenpreis Spezi};
+            
+            \draw[arrow] (e1) -- (fkt);
+            %\draw[arrow] (e2) -- (fkt);
+            %\draw[arrow] (e3) -- (fkt);
+            \draw[arrow] (eN) -- (fkt);
+            \draw[arrow] (fkt) -- (final);
+    }
+    \LoesungTikz{
+            \node[dfddata, text width=2cm, minimum width=1pt] (e1) {Preis Kasten Wasser};
+           % \node[dfddata, text width=0.5cm, minimum height=8pt, right=0.2cm of e1] (e2) {...};
+            %\node[text width=0.5cm, minimum width=1pt, minimum height=8pt, right=0.2cm of e2] (edots) {...};
+            %\node[dfddata, text width=0.5cm, minimum height=8pt, right=0.2cm of edots] (e3) {...};
+            \node[dfddata, text width=3cm, right=0.2cm of e1] (eN) {Anzahl Flaschen pro Kasten Wasser};
+
+            \node[oval, text width=3.5cm, below=1.5cm of $(e1)!0.5!(eN)$] (fkt) {Flaschenpreis Wasser berechnen};
+            
+            \node[dfddata, below=0.5cm of fkt] (final) {Flaschenpreis Wasser};
+            
+            \draw[arrow] (e1) -- (fkt);
+            %\draw[arrow] (e2) -- (fkt);
+            %\draw[arrow] (e3) -- (fkt);
+            \draw[arrow] (eN) -- (fkt);
+            \draw[arrow] (fkt) -- (final);
+    }
+    \LoesungTikz{
+            \node[dfddata, text width=2cm, minimum width=1pt] (e1) {Preis Kasten Bier};
+           % \node[dfddata, text width=0.5cm, minimum height=8pt, right=0.2cm of e1] (e2) {...};
+            %\node[text width=0.5cm, minimum width=1pt, minimum height=8pt, right=0.2cm of e2] (edots) {...};
+            %\node[dfddata, text width=0.5cm, minimum height=8pt, right=0.2cm of edots] (e3) {...};
+            \node[dfddata, text width=3cm, right=0.2cm of e1] (eN) {Anzahl Flaschen pro Kasten Bier};
+
+            \node[oval, text width=3.5cm, below=1.5cm of $(e1)!0.5!(eN)$] (fkt) {Flaschenpreis Bier berechnen};
+            
+            \node[dfddata, below=0.5cm of fkt] (final) {Flaschenpreis Bier};
+            
+            \draw[arrow] (e1) -- (fkt);
+            %\draw[arrow] (e2) -- (fkt);
+            %\draw[arrow] (e3) -- (fkt);
+            \draw[arrow] (eN) -- (fkt);
+            \draw[arrow] (fkt) -- (final);
+    }
+}
+
+
+\UnterAufgabe{Getränkekalkuation A2}{
+    \ifbeamer\else
+        \Loesung{\textbf{Gruppe A2}}
+    \fi
+    
+    \LoesungTikz{
+            \node[dfddata, text width=1.8cm, minimum width=1pt] (e1) {Anzahl Gäste};
+            \node[dfddata, text width=3cm, right=0.3cm of e1, minimum width=1pt] (e2) {Konsum Spezi pro Gast};
+            \node[dfddata, text width=3cm, right=0.3cm of e2] (eN) {Flaschenpreis Spezi};
+
+            \node[oval, text width=4.5cm, below=1.5cm of e2] (fkt) {Einkaufskosten Spezi berechnen};
+            
+            \node[dfddata, below=0.5cm of fkt] (final) {Einkaufskosten Spezi};
+            
+            \draw[arrow] (e1) -- (fkt);
+            \draw[arrow] (e2) -- (fkt);
+            %\draw[arrow] (e3) -- (fkt);
+            \draw[arrow] (eN) -- (fkt);
+            \draw[arrow] (fkt) -- (final);
+    }
+    \LoesungTikz{
+            \node[dfddata, text width=1.8cm, minimum width=1pt] (e1) {Anzahl Gäste};
+            \node[dfddata, text width=3cm, right=0.3cm of e1, minimum width=1pt] (e2) {Konsum Wasser pro Gast};
+            \node[dfddata, text width=3cm, right=0.3cm of e2] (eN) {Flaschenpreis Wasser};
+
+            \node[oval, text width=4.5cm, below=1.5cm of e2] (fkt) {Einkaufskosten Wasser berechnen};
+            
+            \node[dfddata, below=0.5cm of fkt] (final) {Einkaufskosten Wasser};
+            
+            \draw[arrow] (e1) -- (fkt);
+            \draw[arrow] (e2) -- (fkt);
+            %\draw[arrow] (e3) -- (fkt);
+            \draw[arrow] (eN) -- (fkt);
+            \draw[arrow] (fkt) -- (final);
+    }
+    
+}
+
+\UnterAufgabe{Getränkekalkuation A2 (2)}{
+    \LoesungTikz{
+            \node[dfddata, text width=1.8cm, minimum width=1pt] (e1) {Anzahl Gäste};
+            \node[dfddata, text width=3cm, right=0.3cm of e1, minimum width=1pt] (e2) {Konsum Bier pro Gast};
+            \node[dfddata, text width=3cm, right=0.3cm of e2] (eN) {Flaschenpreis Bier};
+
+            \node[oval, text width=4.5cm, below=1.5cm of e2] (fkt) {Einkaufskosten Bier berechnen};
+            
+            \node[dfddata, below=0.5cm of fkt] (final) {Einkaufskosten Bier};
+            
+            \draw[arrow] (e1) -- (fkt);
+            \draw[arrow] (e2) -- (fkt);
+            %\draw[arrow] (e3) -- (fkt);
+            \draw[arrow] (eN) -- (fkt);
+            \draw[arrow] (fkt) -- (final);
+    }
+    \LoesungTikz{
+            \node[dfddata, text width=2.5cm, minimum width=1pt] (e1) {Einkaufskosten Spezi};
+            \node[dfddata, text width=3cm, right=0.3cm of e1, minimum width=1pt] (e2) {Einkaufskosten Wasser};
+            \node[dfddata, text width=2.5cm, right=0.3cm of e2] (eN) {Einkaufskosten Bier};
+
+            \node[oval, text width=4.5cm, below=1.5cm of e2] (fkt) {Einkaufskosten gesamt berechnen};
+            
+            \node[dfddata, below=0.5cm of fkt] (final) {Einkaufskosten gesamt};
+            
+            \draw[arrow] (e1) -- (fkt);
+            \draw[arrow] (e2) -- (fkt);
+            %\draw[arrow] (e3) -- (fkt);
+            \draw[arrow] (eN) -- (fkt);
+            \draw[arrow] (fkt) -- (final);
+    }
+}
+
+\UnterAufgabe{Getränkekalkuation B1}{
+    \ifbeamer\else
+        \Loesung{\textbf{Gruppe B1}}
+    \fi
+    
+    \LoesungTikz{
+            \node[dfddata, text width=1.5cm, minimum width=1pt] (e1) {Anzahl Gäste};
+            \node[dfddata, text width=1.5cm, right=0.3cm of e1, minimum width=1pt] (e2) {Konsum Spezi pro Gast};
+            \node[dfddata, text width=1.5cm, right=0.3cm of e2] (eN) {Verkaufspreis Spezi};
+
+            \node[oval, text width=3.5cm, below=1cm of e2] (fkt) {Einnahmen Spezi berechnen};
+            
+            \node[dfddata, below=0.5cm of fkt] (final) {Einnahmen Spezi};
+            
+            \draw[arrow] (e1) -- (fkt);
+            \draw[arrow] (e2) -- (fkt);
+            %\draw[arrow] (e3) -- (fkt);
+            \draw[arrow] (eN) -- (fkt);
+            \draw[arrow] (fkt) -- (final);
+    }
+    \LoesungTikz{
+            \node[dfddata, text width=1.5cm, minimum width=1pt] (e1) {Anzahl Gäste};
+            \node[dfddata, text width=1.5cm, right=0.3cm of e1, minimum width=1pt] (e2) {Konsum Wasser pro Gast};
+            \node[dfddata, text width=1.5cm, right=0.3cm of e2] (eN) {Verkaufspreis Wasser};
+
+            \node[oval, text width=3.5cm, below=1cm of e2] (fkt) {Einnahmen Wasser berechnen};
+            
+            \node[dfddata, below=0.5cm of fkt] (final) {Einnahmen Wasser};
+            
+            \draw[arrow] (e1) -- (fkt);
+            \draw[arrow] (e2) -- (fkt);
+            %\draw[arrow] (e3) -- (fkt);
+            \draw[arrow] (eN) -- (fkt);
+            \draw[arrow] (fkt) -- (final);
+    }
+    \LoesungTikz{
+            \node[dfddata, text width=1.5cm, minimum width=1pt] (e1) {Anzahl Gäste};
+            \node[dfddata, text width=1.5cm, right=0.3cm of e1, minimum width=1pt] (e2) {Konsum Bier pro Gast};
+            \node[dfddata, text width=1.5cm, right=0.3cm of e2] (eN) {Verkaufspreis Bier};
+
+            \node[oval, text width=3.5cm, below=1cm of e2] (fkt) {Einnahmen Bier berechnen};
+            
+            \node[dfddata, below=0.5cm of fkt] (final) {Einnahmen Bier};
+            
+            \draw[arrow] (e1) -- (fkt);
+            \draw[arrow] (e2) -- (fkt);
+            %\draw[arrow] (e3) -- (fkt);
+            \draw[arrow] (eN) -- (fkt);
+            \draw[arrow] (fkt) -- (final);
+    }
+    
+}
+\UnterAufgabe{Getränkekalkuation B2}{
+    \ifbeamer\else
+        \Loesung{\textbf{Gruppe B2}}
+    \fi
+    
+    \LoesungTikz{
+            \node[dfddata, text width=2.3cm, minimum width=1pt] (e1) {Erwartete Einnahmen};
+           % \node[dfddata, text width=0.5cm, minimum height=8pt, right=0.2cm of e1] (e2) {...};
+            %\node[text width=0.5cm, minimum width=1pt, minimum height=8pt, right=0.2cm of e2] (edots) {...};
+            %\node[dfddata, text width=0.5cm, minimum height=8pt, right=0.2cm of edots] (e3) {...};
+            \node[dfddata, text width=2.3cm, right=0.2cm of e1] (eN) {Einkaufskosten bei Händler 1};
+
+            \node[oval, text width=3cm, below=1.5cm of $(e1)!0.5!(eN)$] (fkt) {Gewinn bei Händler 1 berechnen};
+            
+            \node[dfddata, below=0.5cm of fkt] (final) {Gewinn bei Händler 1};
+            
+            \draw[arrow] (e1) -- (fkt);
+            %\draw[arrow] (e2) -- (fkt);
+            %\draw[arrow] (e3) -- (fkt);
+            \draw[arrow] (eN) -- (fkt);
+            \draw[arrow] (fkt) -- (final);
+    }
+    \LoesungTikz{
+            \node[dfddata, text width=2.3cm, minimum width=1pt] (e1) {Erwartete Einnahmen};
+           % \node[dfddata, text width=0.5cm, minimum height=8pt, right=0.2cm of e1] (e2) {...};
+            %\node[text width=0.5cm, minimum width=1pt, minimum height=8pt, right=0.2cm of e2] (edots) {...};
+            %\node[dfddata, text width=0.5cm, minimum height=8pt, right=0.2cm of edots] (e3) {...};
+            \node[dfddata, text width=2.3cm, right=0.2cm of e1] (eN) {Einkaufskosten bei Händler 1};
+
+            \node[oval, text width=3cm, below=1.5cm of $(e1)!0.5!(eN)$] (fkt) {Gewinn bei Händler 1 berechnen};
+            
+            \node[dfddata, below=0.5cm of fkt] (final) {Gewinn bei Händler 1};
+            
+            \draw[arrow] (e1) -- (fkt);
+            %\draw[arrow] (e2) -- (fkt);
+            %\draw[arrow] (e3) -- (fkt);
+            \draw[arrow] (eN) -- (fkt);
+            \draw[arrow] (fkt) -- (final);
+    }
+    \LoesungTikz{
+            \node[dfddata, text width=2cm, minimum width=1pt] (e1) {Gewinn bei Händler 1};
+           % \node[dfddata, text width=0.5cm, minimum height=8pt, right=0.2cm of e1] (e2) {...};
+            %\node[text width=0.5cm, minimum width=1pt, minimum height=8pt, right=0.2cm of e2] (edots) {...};
+            %\node[dfddata, text width=0.5cm, minimum height=8pt, right=0.2cm of edots] (e3) {...};
+            \node[dfddata, text width=2cm, right=0.2cm of e1] (eN) {Gewinn bei Händler 2};
+
+            \node[oval, text width=3cm, below=1.5cm of $(e1)!0.5!(eN)$] (fkt) {Kostenunterschied berechnen};
+            
+            \node[dfddata, below=0.5cm of fkt] (final) {Kostenunterschied};
+            
+            \draw[arrow] (e1) -- (fkt);
+            %\draw[arrow] (e2) -- (fkt);
+            %\draw[arrow] (e3) -- (fkt);
+            \draw[arrow] (eN) -- (fkt);
+            \draw[arrow] (fkt) -- (final);
+    }
+}

@@ -1,0 +1,31 @@
+\Hefteintrag{2}{Verkettung von Funktionen}{
+    Wenn der \LoesungLuecke{Ausgabewert}{6cm} einer Funktion als \LoesungLuecke{Eingabewert}{6cm} einer anderen Funktion verwendet wird, spricht man von \LoesungLuecke{Verkettung}{6cm} von Funktionen. In Datenflussdiagrammen können \LoesungLuecke{Datenblöcke}{7cm} zwischen \LoesungLuecke{2 Funktionen}{10cm} weggelassen werden. Hierbei ist es dann besonders wichtig, aussagekräftige Funktionsnamen zu wählen. Mit einem \LoesungLuecke{Verteiler}{6cm} kann ein Datenfluss in zwei aufgeteilt werden. 
+
+    \vspace{0.1cm}
+    \begin{minipage}[t]{0.5\textwidth}
+    \ifbeamer
+       \vspace{-12pt}
+   \else
+        \ifloesung
+       %\vspace{-12pt}
+       \else
+       \vspace{-36pt}
+       \fi
+   \fi
+        Ein \emphColA{Beispiel} ist das Gesamt-Diagramm aus der  \emphColA{vorherigen Aufgabe}.
+    \end{minipage}
+    \hfill
+    \begin{minipage}[t]{0.4\textwidth}
+        \LoesungKaroTikz{
+            \node[oval, minimum width=0.3cm, minimum height=0.3cm] (circ) {};
+            \node[left=1cm of circ] (d1) {};
+            \node[above right = 0.5cm and 1cm of circ] (d2) {};
+            \node[below right = 0.5cm and 1cm of circ] (d3) {};
+
+            \draw[arrow] (d1)--(circ);
+            \draw[arrow] (circ)--(d2);
+            \draw[arrow] (circ)--(d3);
+        }{5}
+        \vfill
+    \end{minipage}
+}   

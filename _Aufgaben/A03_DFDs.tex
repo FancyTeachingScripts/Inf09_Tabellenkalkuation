@@ -1,0 +1,35 @@
+\Aufgabe[15]{Formeln mit Diagrammen darstellen}
+{
+Diagramme wie im ersten Hefteintrag, die Eingabe, Verarbeitung und Ausgabe darstellen, nennt man Datenflussdiagramm.
+\begin{itemize}
+    \item Zeichne für eine Wachstumsberechnung und eine Summe aus deiner Tabelle je ein Datenflussdiagramm.
+    \item Überlege dabei: Wie stellst du die Daten dar und wieso?\\Zum Beispiel als konkreten Wert, als Zelladresse, als Beschreibung, ... ?
+\end{itemize}
+\LoesungKaroTikz{
+    \node[dfddata, text width=2cm] (gq2) {Umsatz Golf Q2};
+    \node[dfddata, text width=2.1cm, right=0.3cm of gq2] (tq2) {Umsatz Tennis Q2};
+    \node[dfddata, text width=2.1cm, right=0.3cm of tq2] (sq2) {Umsatz Safari Q2};
+
+    \node[oval, text width=2.2cm, below=1cm of tq2] (summe) {SUMME (nicht + ! )};
+    
+    \node[dfddata, below=1cm of summe] (final) {Gesamtumsatz Q2};
+    
+    \draw[arrow] (gq2) -- (summe);
+    \draw[arrow] (tq2) -- (summe);
+    \draw[arrow] (sq2) -- (summe);
+    \draw[arrow] (summe) -- (final);
+    %
+    %
+    %
+    \node[dfddata, text width=2.1cm, right=1cm of sq2] (golf) {Umsatz Golf Q2};
+    \node[dfddata, text width=2.4cm, right=0.3cm of golf] (fakt) {Wachstums-faktor};
+
+    \node[oval, text width=2.2cm, below=1cm of $(golf)!0.5!(fakt)$] (stern) {PRODUKT oder *};
+    
+    \node[dfddata, below=1cm of stern] (gq3) {Umsatz Golf Q3};
+    
+    \draw[arrow] (golf) -- (stern);
+    \draw[arrow] (fakt) -- (stern);
+    \draw[arrow] (stern) -- (gq3);
+}{22}
+}
