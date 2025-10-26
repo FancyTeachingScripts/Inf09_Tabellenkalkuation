@@ -222,8 +222,8 @@ jobs:
       # Copy PDFs to the website repository
       - name: Copy PDFs to website
         run: |
-          mkdir -p website/_coll_lessonscripts/inf10_db/
-          cp *.pdf website/_coll_lessonscripts/inf10_db/
+          mkdir -p website/_coll_lessonscripts/inf09_tabkalk/
+          cp *.pdf website/_coll_lessonscripts/inf09_tabkalk/
 
       # Commit and push changes
       - name: Commit and push PDFs
@@ -231,8 +231,8 @@ jobs:
           cd website
           git config user.name "GitHub Actions Bot"
           git config user.email "actions@github.com"
-          git add _coll_lessonscripts/inf10_db/*.pdf
-          git commit -m "Update Inf10 DB PDFs from ${{ github.repository }}@${{ github.sha }}" || echo "No changes to commit"
+          git add _coll_lessonscripts/inf09_tabkalk/*.pdf
+          git commit -m "Update Inf09 TabKalk PDFs from ${{ github.repository }}@${{ github.sha }}" || echo "No changes to commit"
           git push
 
 
