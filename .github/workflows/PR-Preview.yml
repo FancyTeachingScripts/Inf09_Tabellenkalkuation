@@ -5,7 +5,7 @@ on:
     branches: [ master, main ]
 
 permissions:
-  contents: read
+  contents: write
   pull-requests: write
 
 jobs:
@@ -50,6 +50,39 @@ jobs:
     needs: compile-preview
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Download all compiled PDFs
+        uses: actions/download-artifact@v4
+        with:
+          pattern: "preview-*"
+          merge-multiple: true
+          path: downloaded-pdfs
+
+      - name: Publish PDFs to previews branch
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+          if git ls-remote --exit-code --heads origin previews; then
+            git fetch origin previews
+            git checkout previews
+          else
+            git checkout --orphan previews
+            git rm -rf . || true
+          fi
+
+          PR_DIR="pr-${{ github.event.pull_request.number }}"
+          mkdir -p "$PR_DIR"
+          cp downloaded-pdfs/*.pdf "$PR_DIR/"
+
+          git add "$PR_DIR"/*.pdf
+          git commit -m "Update previews for PR #${{ github.event.pull_request.number }} (${GITHUB_SHA::7})" || echo "No changes to commit"
+          git push origin previews || (git pull origin previews --rebase && git push origin previews)
+
       - name: Post or update PR comment
         uses: actions/github-script@v7
         with:
@@ -60,12 +93,14 @@ jobs:
               run_id: context.runId,
             });
 
+            const prNumber = context.issue.number;
             const rows = artifacts.data.artifacts
               .filter(a => a.name.startsWith('preview-'))
               .map(a => {
                 const pdfName = a.name.replace('preview-', '') + '.pdf';
+                const viewUrl = `https://github.com/${context.repo.owner}/${context.repo.repo}/blob/previews/pr-${prNumber}/${pdfName}`;
                 const downloadUrl = `https://github.com/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}/artifacts/${a.id}`;
-                return `| \`${pdfName}\` | [⬇ Download](${downloadUrl}) |`;
+                return `| \`${pdfName}\` | [👁 Open in Viewer](${viewUrl}) | [⬇ Download ZIP](${downloadUrl}) |`;
               })
               .join('\n');
 
@@ -77,8 +112,8 @@ jobs:
               '### 📄 PDF Preview',
               `Compiled for commit \`${sha}\` — [View Actions run](${runUrl})`,
               '',
-              '| PDF | Download |',
-              '|-----|----------|',
+              '| PDF | In-Browser View | Download |',
+              '|-----|-----------------|----------|',
               rows,
               '',
               `_Updated: ${new Date().toUTCString()}_`,
