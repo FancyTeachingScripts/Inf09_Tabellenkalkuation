@@ -346,11 +346,13 @@
     }
 }
 
-\newcommand{\UnterAufgabeSkript}[1]{
-    \begin{minipage}[t]{\textwidth} 
-        \vspace{0.2cm}
-        #1
-    \end{minipage}
+\newcommand{\UnterAufgabeSkript}[1]{%
+    \par\noindent%
+    \begin{minipage}[t]{\textwidth}%
+        \vspace{0.2cm}%
+        #1%
+    \end{minipage}%
+    \par%
 }
 
 \newcommand{\UnterAufgabeBeamer}[3]{
@@ -385,6 +387,7 @@
           \marksectionstart
           #2
         \end{tcolorbox}
+    %\end{frame}
     }
 
 }
@@ -412,13 +415,15 @@
 % #4: Content left
 % #5: Content right
 \newcommand{\doppelseite}[5]{%
-  \begin{minipage}[#3]{#1\textwidth} \vspace{0pt}
-    #4
-  \end{minipage}
-  \hfill
-  \begin{minipage}[#3]{#2\textwidth} \vspace{0pt}
-    #5
-  \end{minipage}
+  \begin{minipage}[#3]{#1\textwidth}%
+    \vspace{0pt}%
+    #4%
+  \end{minipage}%
+  \hfill%
+  \begin{minipage}[#3]{#2\textwidth}%
+    \vspace{0pt}%
+    #5%
+  \end{minipage}%
 }
 
 	
