@@ -250,6 +250,11 @@
   UprightFont = *-Regular,
   BoldFont = *-Bold
 ]
+\RequirePackage{newunicodechar}
+\newunicodechar{ß}{\iffontchar\font"00DF ß\else{\normalfont ß}\fi}
+\newunicodechar{ẞ}{\iffontchar\font"1E9E ẞ\else{\normalfont ẞ}\fi}
+\newunicodechar{„}{\iffontchar\font"201E „\else{\normalfont „}\fi}
+\newunicodechar{“}{\iffontchar\font"201C “\else{\normalfont “}\fi}
 %%%%%%%%%%%%%
 \RequirePackage{sty/3_Loesung} 
 \RequirePackage{sty/4_Info}
