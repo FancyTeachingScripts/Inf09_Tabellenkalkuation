@@ -243,7 +243,7 @@
         \begin{tcolorbox}[
             breakable,
             enhanced,
-            title=~~#2,
+            title=\strut~~#2,
             opacityframe=1,
             fontupper=\color{\TFarbe},
             opacityback=1,
@@ -252,8 +252,9 @@
             boxsep=0pt,
             left=3pt,
             right=3pt,
-            fonttitle=\bfseries\Large,
-            overlay={\node[anchor=north east,outer sep=-1pt]  at (frame.north east) {\includegraphics[height=13pt]{sty/img/pen_white.pdf}};}
+            righttitle=20pt,
+            fonttitle=\linespread{1.0}\selectfont\bfseries\Large,
+            overlay={\node[anchor=east,inner sep=0pt,xshift=-3pt] at (title.east) {\includegraphics[height=15pt]{sty/img/pen_white.pdf}};}
         ]
         \marksectionstart
             #3
@@ -337,8 +338,9 @@
             boxsep=0pt,
             left=3pt,
             right=3pt,
+            righttitle=20pt,
             fonttitle=\bfseries\Large,
-            overlay={\node[anchor=north east,outer sep=-1pt] at (frame.north east) {\includegraphics[height=17pt]{sty/img/finger_\theme_colB.pdf}};}
+            overlay={\node[anchor=east,inner sep=0pt,xshift=-3pt] at (title.east) {\includegraphics[height=17pt]{sty/img/finger_\theme_colB.pdf}};}
         ]
           \marksectionstart
           #2
@@ -346,11 +348,13 @@
     }
 }
 
-\newcommand{\UnterAufgabeSkript}[1]{
-    \begin{minipage}[t]{\textwidth} 
-        \vspace{0.2cm}
-        #1
-    \end{minipage}
+\newcommand{\UnterAufgabeSkript}[1]{%
+    %\par\noindent%
+    \begin{minipage}[t]{\textwidth}%
+        \vspace{0.2cm}%
+        #1%
+    \end{minipage}%
+    %\par%
 }
 
 \newcommand{\UnterAufgabeBeamer}[3]{
@@ -377,14 +381,16 @@
             boxsep=0pt,
             left=3pt,
             right=3pt,
+            righttitle=20pt,
             colback=colB!7!black,
             colframe=lightgray,
             fonttitle=\bfseries\Large,
-            overlay={\node[anchor=north east,outer sep=-1pt] at (frame.north east) {\includegraphics[height=17pt]{sty/img/finger_\theme_colB.pdf}};}
+            overlay={\node[anchor=east,inner sep=0pt,xshift=-3pt] at (title.east) {\includegraphics[height=17pt]{sty/img/finger_\theme_colB.pdf}};}
         ]
           \marksectionstart
           #2
         \end{tcolorbox}
+    %\end{frame}
     }
 
 }
@@ -412,13 +418,15 @@
 % #4: Content left
 % #5: Content right
 \newcommand{\doppelseite}[5]{%
-  \begin{minipage}[#3]{#1\textwidth} \vspace{0pt}
-    #4
-  \end{minipage}
-  \hfill
-  \begin{minipage}[#3]{#2\textwidth} \vspace{0pt}
-    #5
-  \end{minipage}
+  \begin{minipage}[#3]{#1\textwidth}%
+    \vspace{0pt}%
+    #4%
+  \end{minipage}%
+  \hfill%
+  \begin{minipage}[#3]{#2\textwidth}%
+    \vspace{0pt}%
+    #5%
+  \end{minipage}%
 }
 
 	

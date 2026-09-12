@@ -361,7 +361,7 @@ draw=black]
 	\begin{tikzpicture}[darkgray,step=#1]
 	\pgfmathtruncatemacro\anzahl{(\linewidth-\pgflinewidth)/#1} % maximale Anzahl Kästchen pro Zeile
 	\draw (0,0) rectangle (\anzahl*#1,#2*#1) (0,0) grid (\anzahl*#1,#2*#1);
-	\end{tikzpicture} 
+	\end{tikzpicture}%
 }
 
 % % Der neue Befehl, der alles steuert.

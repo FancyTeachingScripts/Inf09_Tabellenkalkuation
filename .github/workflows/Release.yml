@@ -70,15 +70,15 @@ jobs:
         with:
           name: prepared-latex-files
 
-      # Compile LaTeX document to PDF using LuaLaTeX (run twice to resolve references and page counts)
-      - name: Compile ${{ matrix.texfile }}
-        uses: xu-cheng/texlive-action@v3
+      # Compile LaTeX document to PDF using Tectonic
+      - name: Setup Tectonic
+        uses: wtfjoke/setup-tectonic@v4
         with:
-          texlive_version: 2024
-          os: debian
-          run: |
-            lualatex -interaction=nonstopmode main/${{ matrix.texfile }} || true
-            lualatex -interaction=nonstopmode main/${{ matrix.texfile }} || true
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Compile ${{ matrix.texfile }}
+        run: |
+          tectonic -Z search-path=. -Z search-path=sty/moloch -Z continue-on-errors -o . main/${{ matrix.texfile }}
 
       # Get the base filename without extension
       - name: Get base filename
