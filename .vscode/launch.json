@@ -7,7 +7,7 @@
         {
             "type": "node",
             "request": "launch",
-            "name": "MAIN (LuaLaTeX)",
+            "name": "MAIN (Tectonic)",
             "program": "${workspaceFolder}/.vscode/dummy.js",
             "args": [],
             "preLaunchTask": "compile-single-tex",
@@ -16,7 +16,7 @@
         {
             "type": "node",
             "request": "launch",
-            "name": "ALL (./main/*.tex))",
+            "name": "ALL (./main/*.tex)",
             "program": "${workspaceFolder}/.vscode/dummy.js",
             "args": [],
             "preLaunchTask": "build-all-main-tex",
