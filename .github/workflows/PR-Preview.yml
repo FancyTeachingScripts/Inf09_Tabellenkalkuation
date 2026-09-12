@@ -1,0 +1,111 @@
+name: PR Preview – Compile PDFs
+
+on:
+  pull_request:
+    branches: [ master, main ]
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  compile-preview:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        texfile:
+          - presentation_noaufraeumen.tex
+          - print_students-cover.tex
+          - print_solution-cover.tex
+      fail-fast: false
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Compile ${{ matrix.texfile }}
+        uses: xu-cheng/texlive-action@v3
+        with:
+          texlive_version: 2024
+          os: debian
+          run: |
+            lualatex -interaction=nonstopmode main/${{ matrix.texfile }} || true
+            lualatex -interaction=nonstopmode main/${{ matrix.texfile }} || true
+
+      - name: Get base filename
+        id: basename
+        run: |
+          basename="${{ matrix.texfile }}"
+          basename="${basename%.tex}"
+          echo "basename=$basename" >> $GITHUB_OUTPUT
+
+      - name: Upload PDF artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: preview-${{ steps.basename.outputs.basename }}
+          path: ${{ steps.basename.outputs.basename }}.pdf
+          retention-days: 7
+          compression-level: 0
+
+  comment-on-pr:
+    needs: compile-preview
+    runs-on: ubuntu-latest
+    steps:
+      - name: Post or update PR comment
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const artifacts = await github.rest.actions.listWorkflowRunArtifacts({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              run_id: context.runId,
+            });
+
+            const rows = artifacts.data.artifacts
+              .filter(a => a.name.startsWith('preview-'))
+              .map(a => {
+                const pdfName = a.name.replace('preview-', '') + '.pdf';
+                const downloadUrl = `https://github.com/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}/artifacts/${a.id}`;
+                return `| \`${pdfName}\` | [⬇ Download](${downloadUrl}) |`;
+              })
+              .join('\n');
+
+            const runUrl = `https://github.com/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}`;
+            const sha = context.payload.pull_request.head.sha.substring(0, 7);
+
+            const body = [
+              '<!-- pdf-preview-bot -->',
+              '### 📄 PDF Preview',
+              `Compiled for commit \`${sha}\` — [View Actions run](${runUrl})`,
+              '',
+              '| PDF | Download |',
+              '|-----|----------|',
+              rows,
+              '',
+              `_Updated: ${new Date().toUTCString()}_`,
+            ].join('\n');
+
+            const issue_number = context.issue.number;
+
+            const { data: comments } = await github.rest.issues.listComments({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: issue_number,
+            });
+
+            const existing = comments.find(c => c.body.startsWith('<!-- pdf-preview-bot -->'));
+
+            if (existing) {
+              await github.rest.issues.updateComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                comment_id: existing.id,
+                body,
+              });
+            } else {
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: issue_number,
+                body,
+              });
+            }
