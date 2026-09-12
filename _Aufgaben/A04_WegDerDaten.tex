@@ -12,4 +12,20 @@
             Ein paar Beispiele für eine Zelle. Es gibt natürlich seehr viele   Möglichkeiten.\\\includegraphics[width=\textwidth]{_Aufgaben/img/orinoo.png}
         }
     \end{minipage}
+
+    \ifbeamer\else
+    \vspace{0.4cm}
+    \textbf{Schablone – Datenflussdiagramm:}\\[0.3cm]
+    \begin{tikzpicture}[
+        oval/.style={ellipse, draw, thick, minimum width=3.5cm, minimum height=1.2cm, align=center}
+    ]
+        \node[dfddata, minimum width=3cm, minimum height=1cm] (i1) {};
+        \node[dfddata, minimum width=3cm, minimum height=1cm, right=1cm of i1] (i2) {};
+        \node[oval, below=1.2cm of $(i1)!0.5!(i2)$] (fkt) {};
+        \node[dfddata, minimum width=3cm, minimum height=1cm, below=1cm of fkt] (out) {};
+        \draw[arrow] (i1) -- (fkt);
+        \draw[arrow] (i2) -- (fkt);
+        \draw[arrow] (fkt) -- (out);
+    \end{tikzpicture}
+    \fi
 }
