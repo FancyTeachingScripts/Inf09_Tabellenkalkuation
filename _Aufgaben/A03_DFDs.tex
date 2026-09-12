@@ -5,31 +5,44 @@ Diagramme wie im ersten Hefteintrag, die Eingabe, Verarbeitung und Ausgabe darst
     \item Zeichne für eine Wachstumsberechnung und eine Summe aus deiner Tabelle je ein Datenflussdiagramm.
     \item Überlege dabei: Wie stellst du die Daten dar und wieso?\\Zum Beispiel als konkreten Wert, als Zelladresse, als Beschreibung, ... ?
 \end{itemize}
-\LoesungKaroTikz{
-    \node[dfddata, text width=2cm] (gq2) {Umsatz Golf Q2};
-    \node[dfddata, text width=2.1cm, right=0.3cm of gq2] (tq2) {Umsatz Tennis Q2};
-    \node[dfddata, text width=2.1cm, right=0.3cm of tq2] (sq2) {Umsatz Safari Q2};
+\doppelseite{0.48}{0.48}{t}{
+    \ifloesung
+        \LoesungTikz{
+            \node[dfddata, text width=2.2cm, minimum width=3cm, minimum height=1cm] (golf) {Umsatz Golf Q2};
+            \node[dfddata, text width=2.5cm, minimum width=3cm, minimum height=1cm, right=0.5cm of golf] (fakt) {Wachstums-faktor};
 
-    \node[oval, text width=2.2cm, below=0.8cm of tq2] (summe) {SUMME (nicht + ! )};
-    
-    \node[dfddata, below=1cm of summe] (final) {Gesamtumsatz Q2};
-    
-    \draw[arrow] (gq2) -- (summe);
-    \draw[arrow] (tq2) -- (summe);
-    \draw[arrow] (sq2) -- (summe);
-    \draw[arrow] (summe) -- (final);
-    %
-    %
-    %
-    \node[dfddata, text width=2.1cm, right=1cm of sq2] (golf) {Umsatz Golf Q2};
-    \node[dfddata, text width=2.4cm, right=0.3cm of golf] (fakt) {Wachstums-faktor};
+            \node[oval, text width=2.2cm, minimum width=3.5cm, minimum height=1.2cm, below=0.8cm of $(golf)!0.5!(fakt)$] (stern) {PRODUKT oder *};
+            
+            \node[dfddata, minimum width=3cm, minimum height=1cm, below=1cm of stern] (gq3) {Umsatz Golf Q3};
+            
+            \draw[arrow] (golf) -- (stern);
+            \draw[arrow] (fakt) -- (stern);
+            \draw[arrow] (stern) -- (gq3);
+        }
+    \else
+        \begin{tikzpicture}[
+            oval/.style={ellipse, draw, thick, minimum width=3.5cm, minimum height=1.2cm, align=center}
+        ]
+            \node[dfddata, minimum width=3cm, minimum height=1cm] (golf) {};
+            \node[dfddata, minimum width=3cm, minimum height=1cm, right=0.5cm of golf] (fakt) {};
+            \node[oval, below=0.8cm of $(golf)!0.5!(fakt)$] (stern) {};
+            \node[dfddata, minimum width=3cm, minimum height=1cm, below=1cm of stern] (gq3) {};
+        \end{tikzpicture}
+    \fi
+}{
+    \LoesungKaroTikz{
+        \node[dfddata, text width=2cm] (gq2) {Umsatz Golf Q2};
+        \node[dfddata, text width=2.1cm, right=0.3cm of gq2] (tq2) {Umsatz Tennis Q2};
+        \node[dfddata, text width=2.1cm, right=0.3cm of tq2] (sq2) {Umsatz Safari Q2};
 
-    \node[oval, text width=2.2cm, below=0.8cm of $(golf)!0.5!(fakt)$] (stern) {PRODUKT oder *};
-    
-    \node[dfddata, below=1cm of stern] (gq3) {Umsatz Golf Q3};
-    
-    \draw[arrow] (golf) -- (stern);
-    \draw[arrow] (fakt) -- (stern);
-    \draw[arrow] (stern) -- (gq3);
-}{22}
+        \node[oval, text width=2.2cm, below=0.8cm of tq2] (summe) {SUMME (nicht + ! )};
+        
+        \node[dfddata, below=1cm of summe] (final) {Gesamtumsatz Q2};
+        
+        \draw[arrow] (gq2) -- (summe);
+        \draw[arrow] (tq2) -- (summe);
+        \draw[arrow] (sq2) -- (summe);
+        \draw[arrow] (summe) -- (final);
+    }{22}
+}
 }
