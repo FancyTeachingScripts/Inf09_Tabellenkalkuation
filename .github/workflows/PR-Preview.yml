@@ -22,10 +22,10 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Install Tectonic
-        uses: taiki-e/install-action@v2
+      - name: Setup Tectonic
+        uses: wtfjoke/setup-tectonic@v4
         with:
-          tool: tectonic
+          github-token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Compile ${{ matrix.texfile }}
         run: |
