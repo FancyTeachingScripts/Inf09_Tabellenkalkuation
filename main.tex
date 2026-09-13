@@ -1,12 +1,12 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % OPTIONEN FESTLEGEN:
 % Genau ein vorkonfiguriertes Optionspaket für Präsentationen (presentation-*)
-% oder Skript/Arbeitsblatt (print-*) aktivieren und Restliche auskommentieren. 
+% oder Skript/Arbeitsblatt (print-*) aktivieren und die übrigen auskommentieren.
 %
-% FORTGESCHRITTEN - Folgende Einzeloptionen sind (fast) beliebig kombinierbar und 
-% können auch zusätzlich zu einem Optionspakete aktiviert werden:
+% FORTGESCHRITTEN - Folgende Einzeloptionen sind (fast) beliebig kombinierbar und
+% können auch zusätzlich zu einem Optionspaket aktiviert werden:
 % presentation, loesung, avenir, letzterstand, einzelstunden, aufraeumen, timer,
-% attachements, qrcodes, hinweise, cover
+% attachments, qrcodes, hinweise, cover
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \RequirePackage[
     % presentation-minimal          % nur Inhalt ohne Features
@@ -14,11 +14,11 @@
     % presentation-minimal-attachments % nur Inhalt + Dateianhänge
     % presentation-nosession        % alle Features, ohne Stundeneinteilung
     % presentation-notimer          % alle Features außer Timer, Stundeneinteilung
-     presentation-full             % alle Features, Stundeneinteilung
+    % presentation-full             % alle Features, Stundeneinteilung
     % print-students                % QR-Codes & Dateianhang, für Schüler
     % print-solution                % QR-Codes & Dateianhang, Muster-Lösung
     % print-students-cover          % wie print-students + Cover-Seite mit Logo+Titel 
-    % print-solution-cover          % wie print-solution + Cover-Seite mit Logo+Titel 
+     print-solution-cover          % wie print-solution + Cover-Seite mit Logo+Titel 
     % print-students-minimal        % nur Inhalt ohne Features, für Schüler
     % print-solution-minimal        % nur Inhalt ohne Features, Muster-Lösung
 ]{sty/MainPackage}
@@ -39,7 +39,7 @@
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% HIER DIE INHALTE EINFÜGEN ODER IMPROTIEREN (wie in der Demo; empfohlen) mit
+% HIER DIE INHALTE EINFÜGEN ODER IMPORTIEREN (wie in der Demo; empfohlen) mit
 % \input{Ordner/Dateiname}      % Dateiname ohne .tex
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \input{selected}
