@@ -48,7 +48,6 @@ jobs:
             _Aufgaben/
             _Hefteintraege/
             _Skripte/
-            img/
             sty/
             selected.tex
             main.tex
