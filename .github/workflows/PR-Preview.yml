@@ -4,6 +4,15 @@ on:
   pull_request:
     branches: [ master, main ]
 
+# Explicit permissions required: this repo's default workflow token is
+# read-only (inherited from being a GitHub fork of FancyScript), and a
+# reusable workflow can never be granted more than the caller's own ceiling.
+# Without this, the call fails with a permissions mismatch before any job
+# starts.
+permissions:
+  contents: write
+  pull-requests: write
+
 jobs:
   preview:
     uses: FancyTeachingScripts/FancyScript/.github/workflows/pr-preview.yml@main

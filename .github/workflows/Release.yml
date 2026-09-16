@@ -5,10 +5,21 @@ name: Compile PDFs
 # release ZIPs, website commit) now lives in FancyScript and is maintained once.
 #
 # The only course-specific values are the two inputs below.
+#
+# permissions must be declared here explicitly: this repo's default workflow
+# token is read-only (every repo in the org inherited that from being
+# GitHub-forked off FancyScript), and a reusable workflow can never be
+# granted MORE than the calling workflow's own ceiling -- without this block
+# the call gets silently capped down and fails with a permissions mismatch
+# before any job even starts.
 on:
   release:
     types: [created]
   workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: read
 
 jobs:
   release:
