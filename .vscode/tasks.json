@@ -6,8 +6,8 @@
             "type": "shell",
             "command": "tectonic",
             "args": [
-                "-Z", "search-path=template",
                 "-Z", "search-path=.",
+                "-Z", "search-path=template",
                 "-Z", "search-path=template/sty/moloch",
                 "-Z", "continue-on-errors",
                 "-o", "build",
@@ -27,8 +27,8 @@
             "type": "shell",
             "command": "tectonic",
             "args": [
-                "-Z", "search-path=template",
                 "-Z", "search-path=.",
+                "-Z", "search-path=template",
                 "-Z", "search-path=template/sty/moloch",
                 "-Z", "continue-on-errors",
                 "-r", "0",
