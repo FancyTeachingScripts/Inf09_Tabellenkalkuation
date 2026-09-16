@@ -7,8 +7,31 @@
             "command": "tectonic",
             "args": [
                 "-Z", "search-path=.",
-                "-Z", "search-path=sty/moloch",
+                "-Z", "search-path=template",
+                "-Z", "search-path=template/sty/moloch",
                 "-Z", "continue-on-errors",
+                "-o", "build",
+                "main.tex"
+            ],
+            "group": "build",
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "shared"
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "compile-single-tex (draft, ~3x faster)",
+            "type": "shell",
+            "command": "tectonic",
+            "args": [
+                "-Z", "search-path=.",
+                "-Z", "search-path=template",
+                "-Z", "search-path=template/sty/moloch",
+                "-Z", "continue-on-errors",
+                "-r", "0",
                 "-o", "build",
                 "main.tex"
             ],
@@ -28,19 +51,19 @@
                 "command": "powershell",
                 "args": [
                     "-ExecutionPolicy", "Bypass",
-                    "-File", "${workspaceFolder}/.vscode/build-parallel.ps1"
+                    "-File", "${workspaceFolder}/template/tools/build-parallel.ps1"
                 ]
             },
             "linux": {
                 "command": "bash",
                 "args": [
-                    "${workspaceFolder}/.vscode/build-parallel.sh"
+                    "${workspaceFolder}/template/tools/build-parallel.sh"
                 ]
             },
             "osx": {
                 "command": "bash",
                 "args": [
-                    "${workspaceFolder}/.vscode/build-parallel.sh"
+                    "${workspaceFolder}/template/tools/build-parallel.sh"
                 ]
             },
             "group": "build",

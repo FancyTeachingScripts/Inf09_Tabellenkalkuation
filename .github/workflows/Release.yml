@@ -1,239 +1,31 @@
 name: Compile PDFs
 
-# Controls when the workflow will run
+# Calls the shared pipeline from the template repo. Everything that used to be
+# duplicated here (matrix setup, Tectonic install, compile, artifact grouping,
+# release ZIPs, website commit) now lives in FancyScript and is maintained once.
+#
+# The only course-specific values are the two inputs below.
+#
+# permissions must be declared here explicitly: this repo's default workflow
+# token is read-only (every repo in the org inherited that from being
+# GitHub-forked off FancyScript), and a reusable workflow can never be
+# granted MORE than the calling workflow's own ceiling -- without this block
+# the call gets silently capped down and fails with a permissions mismatch
+# before any job even starts.
 on:
-  # Triggers the workflow when a release is created
   release:
     types: [created]
-
-  # Triggers the workflow on pull requests
-  #pull_request:
-  #  branches: [ master, main ]
-
-  # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
-# Set permissions for GITHUB_TOKEN
 permissions:
   contents: write
   pull-requests: read
 
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  # Job to prepare the LaTeX files
-  prepare:
-    runs-on: ubuntu-latest
-    outputs:
-      matrix: ${{ steps.set-matrix.outputs.matrix }}
-    steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - name: Checkout repository
-        uses: actions/checkout@v4
-
-      # Find all .tex files in main directory and create matrix
-      - name: Set up compilation matrix
-        id: set-matrix
-        run: |
-          files=$(find main -maxdepth 1 -name "*.tex" -type f -printf '%f\n' | jq -R -s -c 'split("\n") | map(select(length > 0))')
-          echo "matrix=$files" >> $GITHUB_OUTPUT
-          echo "Found files: $files"
-
-      # Upload prepared files for the compile jobs
-      - name: Upload prepared files
-        uses: actions/upload-artifact@v4
-        with:
-          name: prepared-latex-files
-          path: |
-            main/
-            _Aufgaben/
-            _Hefteintraege/
-            _Skripte/
-            sty/
-            selected.tex
-            main.tex
-          retention-days: 1
-          compression-level: 0
-
-  # Job to compile all LaTeX documents in parallel
-  compile:
-    runs-on: ubuntu-latest
-    needs: prepare
-    strategy:
-      matrix:
-        texfile: ${{ fromJson(needs.prepare.outputs.matrix) }}
-      fail-fast: false
-    steps:
-      # Download the prepared files
-      - name: Download prepared files
-        uses: actions/download-artifact@v4
-        with:
-          name: prepared-latex-files
-
-      # Compile LaTeX document to PDF using Tectonic
-      - name: Setup Tectonic
-        uses: wtfjoke/setup-tectonic@v4
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Compile ${{ matrix.texfile }}
-        run: |
-          tectonic -Z search-path=. -Z search-path=sty/moloch -Z continue-on-errors -o . main/${{ matrix.texfile }}
-
-      # Get the base filename without extension
-      - name: Get base filename
-        id: basename
-        run: |
-          basename="${{ matrix.texfile }}"
-          basename="${basename%.tex}"
-          echo "basename=$basename" >> $GITHUB_OUTPUT
-
-      # Upload compiled PDF as individual artifact
-      - name: Upload ${{ steps.basename.outputs.basename }}.pdf
-        uses: actions/upload-artifact@v4
-        with:
-          name: ${{ steps.basename.outputs.basename }}
-          path: ${{ steps.basename.outputs.basename }}.pdf
-          compression-level: 0
-
-  # Job to create combined PDF artifacts (runs after all compilations)
-  combine-artifacts:
-    runs-on: ubuntu-latest
-    needs: compile
-    steps:
-      # Download all compiled PDFs
-      - name: Download all PDFs
-        uses: actions/download-artifact@v4
-        with:
-          pattern: "*"
-          merge-multiple: true
-
-      # Upload all PDFs together
-      - name: Upload All PDFs
-        uses: actions/upload-artifact@v4
-        with:
-          name: All_PDFs
-          path: "*.pdf"
-          compression-level: 0
-          retention-days: ${{ github.event_name == 'release' && 1 || 7 }}
-
-      # Upload Derksen themed PDFs
-      - name: Upload Derksen PDFs
-        uses: actions/upload-artifact@v4
-        with:
-          name: All_Derksen_PDFs
-          path: "*_derksen.pdf"
-          compression-level: 0
-          retention-days: ${{ github.event_name == 'release' && 1 || 7 }}
-
-      # Upload MTG themed PDFs
-      - name: Upload MTG PDFs
-        uses: actions/upload-artifact@v4
-        with:
-          name: All_MTG_PDFs
-          path: "*_mtg.pdf"
-          compression-level: 0
-          retention-days: ${{ github.event_name == 'release' && 1 || 7 }}
-
-      # Upload default theme PDFs (files without _derksen or _mtg suffix)
-      - name: Upload Default Theme PDFs
-        uses: actions/upload-artifact@v4
-        with:
-          name: All_DefaultTheme_PDFs
-          path: |
-            *.pdf
-            !*_derksen.pdf
-            !*_mtg.pdf
-          compression-level: 0
-          retention-days: ${{ github.event_name == 'release' && 1 || 7 }}
-
-  # Job to attach PDF collections to the release
-  attach-to-release:
-    runs-on: ubuntu-latest
-    needs: combine-artifacts
-    if: github.event_name == 'release'
-    steps:
-      # Download all PDF collections
-      - name: Download All PDFs
-        uses: actions/download-artifact@v4
-        with:
-          name: All_PDFs
-          path: all-pdfs
-
-      - name: Download Derksen PDFs
-        uses: actions/download-artifact@v4
-        with:
-          name: All_Derksen_PDFs
-          path: derksen-pdfs
-
-      - name: Download MTG PDFs
-        uses: actions/download-artifact@v4
-        with:
-          name: All_MTG_PDFs
-          path: mtg-pdfs
-
-      - name: Download Default Theme PDFs
-        uses: actions/download-artifact@v4
-        with:
-          name: All_DefaultTheme_PDFs
-          path: default-pdfs
-
-      # Create ZIP archives for each collection
-      - name: Create ZIP archives
-        run: |
-          cd all-pdfs && zip -r ../All_PDFs.zip . && cd ..
-          cd derksen-pdfs && zip -r ../All_Derksen_PDFs.zip . && cd ..
-          cd mtg-pdfs && zip -r ../All_MTG_PDFs.zip . && cd ..
-          cd default-pdfs && zip -r ../All_DefaultTheme_PDFs.zip . && cd ..
-
-      # Upload ZIP files to the release
-      - name: Upload All PDFs to Release
-        uses: softprops/action-gh-release@v1
-        with:
-          files: |
-            All_PDFs.zip
-            All_Derksen_PDFs.zip
-            All_MTG_PDFs.zip
-            All_DefaultTheme_PDFs.zip
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-  # Job to commit PDFs to the website repository
-  commit-to-website:
-    runs-on: ubuntu-latest
-    needs: compile
-    if: github.event_name == 'release'
-    steps:
-      # Download all compiled PDFs
-      - name: Download all PDFs
-        uses: actions/download-artifact@v4
-        with:
-          pattern: "*"
-          merge-multiple: true
-
-      # Checkout the website repository
-      - name: Checkout website repository
-        uses: actions/checkout@v4
-        with:
-          repository: ValentinHerrmann/ValentinHerrmann.github.io
-          token: ${{ secrets.WEBSITE_REPO_TOKEN }}
-          path: website
-
-      # Copy PDFs to the website repository
-      - name: Copy PDFs to website
-        run: |
-          mkdir -p website/_coll_lessonscripts/inf09_tabkalk/
-          cp *.pdf website/_coll_lessonscripts/inf09_tabkalk/
-
-      # Commit and push changes
-      - name: Commit and push PDFs
-        run: |
-          cd website
-          git config user.name "GitHub Actions Bot"
-          git config user.email "actions@github.com"
-          git add _coll_lessonscripts/inf09_tabkalk/*.pdf
-          git commit -m "Update Inf09 TabKalk PDFs from ${{ github.repository }}@${{ github.sha }}" || echo "No changes to commit"
-          git push
-
-
-
-
+  release:
+    uses: FancyTeachingScripts/FancyScript/.github/workflows/release.yml@main
+    with:
+      website_path: inf09_tabkalk
+      commit_label: Inf09 TabKalk
+    secrets:
+      WEBSITE_REPO_TOKEN: ${{ secrets.WEBSITE_REPO_TOKEN }}
