@@ -4,10 +4,13 @@
         {
             "label": "compile-single-tex",
             "type": "shell",
-            "command": "powershell",
+            "command": "tectonic",
             "args": [
-                "-Command",
-                "lualatex -interaction=nonstopmode main.tex; lualatex -interaction=nonstopmode main.tex"
+                "-Z", "search-path=.",
+                "-Z", "search-path=sty/moloch",
+                "-Z", "continue-on-errors",
+                "-o", "build",
+                "main.tex"
             ],
             "group": "build",
             "presentation": {
@@ -21,11 +24,25 @@
         {
             "label": "build-all-main-tex",
             "type": "shell",
-            "command": "powershell",
-            "args": [
-                "-ExecutionPolicy", "Bypass",
-                "-File", ".vscode/build-parallel.ps1"
-            ],
+            "windows": {
+                "command": "powershell",
+                "args": [
+                    "-ExecutionPolicy", "Bypass",
+                    "-File", "${workspaceFolder}/.vscode/build-parallel.ps1"
+                ]
+            },
+            "linux": {
+                "command": "bash",
+                "args": [
+                    "${workspaceFolder}/.vscode/build-parallel.sh"
+                ]
+            },
+            "osx": {
+                "command": "bash",
+                "args": [
+                    "${workspaceFolder}/.vscode/build-parallel.sh"
+                ]
+            },
             "group": "build",
             "presentation": {
                 "echo": true,

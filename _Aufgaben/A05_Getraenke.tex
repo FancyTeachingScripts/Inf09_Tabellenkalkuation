@@ -3,9 +3,9 @@
     \AttachVlg{\faFilePdfO}{_Aufgaben/resources/A05_Stationen.pdf}
     Ihr macht die Kalkulation für eine große Party mit einer Kalkulationstabelle. Da so eine Planung aufwendig ist, wird sie auf mehrere Personen aufgeteilt.
     \begin{enumerate}
-        \item Bildet mindestens 4 Gruppen (A1,A2,B1,B2 - manche kann es doppelt geben) und nehmt euch gemeinsam einen Zettel. Eure Aufgabenstellung erhaltet ihr von der Lehrkraft \Loesung{(oben als Dateianhang)}
+        \item Bildet mindestens 4 Gruppen (A1, A2, B1, B2 – manche kann es doppelt geben) und nehmt euch gemeinsam einen Zettel. Eure Aufgabenstellung erhaltet ihr von der Lehrkraft \Loesung{(oben als Dateianhang)}
         \item Zeichnet zu eurer Aufgabenstellung \emphColB{pro Schritt ein Datenflussdiagramm} (mit hoher Abstraktion)\\
-            \hinweis{Hohe Abstraktion bedeutet keine konkreten Rechnungen, sondern beschreibende Funktionsnamen.}\\
+            \hinweis{Hohe Abstraktion bedeutet keine konkreten Rechnungen, sondern beschreibende Funktionsnamen.\newline}%
             \hinweis{Wenn die gleiche Berechnung für mehrere Getränke gemacht wird, zeichnet hierfür mehrere Diagramme.}
         \item Tauscht euer Diagramm mit der anderen Gruppe eures Buchstabens (also z.B. tauschen A1 und A2) und setzt dieses dann mit der Tabellensoftware in BYCS-Drive um. \begin{itemize}
         \item Färbt auch dieses Mal wieder die Zellen anhand des Typs (Nutzereingabe, Formel, Beschriftung) ein.
@@ -16,19 +16,14 @@
 
     Wieso ist es sinnvoll, zuerst ein Diagramm zu zeichnen?
 
-    \LoesungLine{z.B. Besserer Überblick, Aufbau einer Intuition für den Kontext, geringere Gefahr vor lauter Syntax den Überblick zu verlieren, 'Divide-and-Conquer', erst Planen, dann Umsetzen reduziert Fehler}{2}
+    \LoesungLine{z.B. Besserer Überblick, Aufbau einer Intuition für den Kontext, geringere Gefahr, vor lauter Syntax den Überblick zu verlieren, \dq Divide-and-Conquer\dq, erst Planen, dann Umsetzen reduziert Fehler}{2}
 
 
     Welche Eigenschaften eines Diagramms machen die Umsetzung leichter?
 
     \LoesungLine{aussagekräftige Namen für Werte auch ohne den Kontext zu kennen, beschreibende Funktionsnamen statt nur Rechenoperationen, \dots}{2}
 }
-\UnterAufgabe{Getränkekalkuation A1}{
-
-    \ifbeamer\else
-    \Loesung{\textbf{Gruppe A1}}
-    \fi
-    
+\UnterAufgabe{Getränkekalkulation A1}{
     \LoesungTikz{
             \node[dfddata, text width=1.8cm, minimum width=1pt] (e1) {Preis Kasten Spezi};
            % \node[dfddata, text width=0.5cm, minimum height=8pt, right=0.2cm of e1] (e2) {...};
@@ -83,10 +78,7 @@
 }
 
 
-\UnterAufgabe{Getränkekalkuation A2}{
-    \ifbeamer\else
-        \Loesung{\textbf{Gruppe A2}}
-    \fi
+\UnterAufgabe{Getränkekalkulation A2}{
     
     \LoesungTikz{
             \node[dfddata, text width=1.8cm, minimum width=1pt] (e1) {Anzahl Gäste};
@@ -121,7 +113,7 @@
     
 }
 
-\UnterAufgabe{Getränkekalkuation A2 (2)}{
+\UnterAufgabe{Getränkekalkulation A2 (2)}{
     \LoesungTikz{
             \node[dfddata, text width=1.7cm, minimum width=1pt] (e1) {Anzahl Gäste};
             \node[dfddata, text width=2.5cm, right=0.2cm of e1, minimum width=1pt] (e2) {Konsum Bier pro Gast};
@@ -154,10 +146,7 @@
     }
 }
 
-\UnterAufgabe{Getränkekalkuation B1}{
-    \ifbeamer\else
-        \Loesung{\textbf{Gruppe B1}}
-    \fi
+\UnterAufgabe{Getränkekalkulation B1}{
     
     \LoesungTikz{
             \node[dfddata, text width=1.2cm, minimum width=1pt] (e1) {Anzahl Gäste};
@@ -206,10 +195,8 @@
     }
     
 }
-\UnterAufgabe{Getränkekalkuation B2}{
-    \ifbeamer\else
-        \Loesung{\textbf{Gruppe B2}}
-    \fi
+\UnterAufgabe{Getränkekalkulation B2}{
+    \hinweis{Der Kosten-Unterschied bezieht sich auf die \emphColB{Einkaufskosten} der beiden Händler (nicht auf den Gewinn).}
     
     \LoesungTikz{
             \node[dfddata, text width=2.3cm, minimum width=1pt] (e1) {Erwartete Einnahmen};
@@ -246,11 +233,11 @@
             \draw[arrow] (fkt) -- (final);
     }
     \LoesungTikz{
-            \node[dfddata, text width=2cm, minimum width=1pt] (e1) {Gewinn bei Händler 1};
+            \node[dfddata, text width=2.4cm, minimum width=1pt] (e1) {Einkaufskosten bei Händler 1};
            % \node[dfddata, text width=0.5cm, minimum height=8pt, right=0.2cm of e1] (e2) {...};
             %\node[text width=0.5cm, minimum width=1pt, minimum height=8pt, right=0.2cm of e2] (edots) {...};
             %\node[dfddata, text width=0.5cm, minimum height=8pt, right=0.2cm of edots] (e3) {...};
-            \node[dfddata, text width=2cm, right=0.2cm of e1] (eN) {Gewinn bei Händler 2};
+            \node[dfddata, text width=2.4cm, right=0.2cm of e1] (eN) {Einkaufskosten bei Händler 2};
 
             \node[oval, text width=3cm, below=1.5cm of $(e1)!0.5!(eN)$] (fkt) {Kostenunterschied berechnen};
             
