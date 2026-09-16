@@ -227,7 +227,7 @@
     \else
         \section{\color{colA} #2}
     \fi
-    \definesframe{#1}{
+    \definesframe{#2}{
     %\begin{frame}
         \setcounter{lsgcount}{1}
         \color{\TFarbe}
@@ -313,13 +313,8 @@
     %\begin{frame}
         \setcounter{lsgcount}{1}
         \iftimer
-        
-        \typeout{HI1}
-          \ifnum\numexpr#3>0 \relax 
-          
-        \typeout{HI2}
+          \ifnum\numexpr#3>0 \relax
               \timer{#3}
-        \typeout{HI3}
               \setcounter{lsgcount}{#3}
               \stepcounter{lsgcount}
               \stepcounter{lsgcount}
@@ -348,11 +343,16 @@
     }
 }
 
-\newcommand{\UnterAufgabeSkript}[1]{%
+% #1: Titel der Teilaufgabe
+% #2: Inhalt
+\newcommand{\UnterAufgabeSkript}[2]{%
     %\par\noindent%
     \begin{minipage}[t]{\textwidth}%
         \vspace{0.2cm}%
-        #1%
+        \ifloesung{\color{colB}\bfseries\large #1}%
+        \par\vspace{0.15cm}%
+        \fi
+        #2%
     \end{minipage}%
     %\par%
 }
@@ -407,7 +407,7 @@
     \ifbeamer
         \UnterAufgabeBeamer{#2}{#3}{#1}
     \else
-        \UnterAufgabeSkript{#3}
+        \UnterAufgabeSkript{#2}{#3}
     \fi
 }
 
