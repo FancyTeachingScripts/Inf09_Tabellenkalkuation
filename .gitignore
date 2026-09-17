@@ -5,6 +5,29 @@ main/
 # build output
 build/
 
+*.log
+
+*.nav
+
+*.out
+
+*.snm
+
+*.toc
+
+*.pdf
+
+pdfs/
+.bash_profile
+.bashrc
+.gitconfig
+.idea
+.mcp.json
+.profile
+.ripgreprc
+.zprofile
+.zshrc
+.claude/
 main.atfi
 main.aux
 main.log

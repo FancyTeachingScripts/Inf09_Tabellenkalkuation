@@ -4,15 +4,31 @@
         {
             "label": "compile-single-tex",
             "type": "shell",
-            "command": "tectonic",
-            "args": [
-                "-Z", "search-path=.",
-                "-Z", "search-path=template",
-                "-Z", "search-path=template/sty/moloch",
-                "-Z", "continue-on-errors",
-                "-o", "build",
-                "main.tex"
-            ],
+            "windows": {
+                "command": "powershell",
+                "args": [
+                    "-ExecutionPolicy", "Bypass",
+                    "-File", "${workspaceFolder}/template/tools/build.ps1",
+                    "-File", "main.tex",
+                    "-Out", "build"
+                ]
+            },
+            "linux": {
+                "command": "bash",
+                "args": [
+                    "${workspaceFolder}/template/tools/build.sh",
+                    "main.tex",
+                    "build"
+                ]
+            },
+            "osx": {
+                "command": "bash",
+                "args": [
+                    "${workspaceFolder}/template/tools/build.sh",
+                    "main.tex",
+                    "build"
+                ]
+            },
             "group": "build",
             "presentation": {
                 "echo": true,
@@ -25,16 +41,34 @@
         {
             "label": "compile-single-tex (draft, ~3x faster)",
             "type": "shell",
-            "command": "tectonic",
-            "args": [
-                "-Z", "search-path=.",
-                "-Z", "search-path=template",
-                "-Z", "search-path=template/sty/moloch",
-                "-Z", "continue-on-errors",
-                "-r", "0",
-                "-o", "build",
-                "main.tex"
-            ],
+            "windows": {
+                "command": "powershell",
+                "args": [
+                    "-ExecutionPolicy", "Bypass",
+                    "-File", "${workspaceFolder}/template/tools/build.ps1",
+                    "-File", "main.tex",
+                    "-Out", "build",
+                    "-Draft"
+                ]
+            },
+            "linux": {
+                "command": "bash",
+                "args": [
+                    "${workspaceFolder}/template/tools/build.sh",
+                    "main.tex",
+                    "build",
+                    "--draft"
+                ]
+            },
+            "osx": {
+                "command": "bash",
+                "args": [
+                    "${workspaceFolder}/template/tools/build.sh",
+                    "main.tex",
+                    "build",
+                    "--draft"
+                ]
+            },
             "group": "build",
             "presentation": {
                 "echo": true,
@@ -51,19 +85,57 @@
                 "command": "powershell",
                 "args": [
                     "-ExecutionPolicy", "Bypass",
-                    "-File", "${workspaceFolder}/template/tools/build-parallel.ps1"
+                    "-File", "${workspaceFolder}/template/tools/build-parallel.ps1",
+                    "-Out", "pdfs"
                 ]
             },
             "linux": {
                 "command": "bash",
                 "args": [
-                    "${workspaceFolder}/template/tools/build-parallel.sh"
+                    "${workspaceFolder}/template/tools/build-parallel.sh",
+                    "-o", "pdfs"
                 ]
             },
             "osx": {
                 "command": "bash",
                 "args": [
-                    "${workspaceFolder}/template/tools/build-parallel.sh"
+                    "${workspaceFolder}/template/tools/build-parallel.sh",
+                    "-o", "pdfs"
+                ]
+            },
+            "group": "build",
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "shared"
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "build-pr-preview-pdfs",
+            "detail": "Compiles the same fixed PDF set as .github/workflows/PR-Preview.yml",
+            "type": "shell",
+            "windows": {
+                "command": "powershell",
+                "args": [
+                    "-ExecutionPolicy", "Bypass",
+                    "-File", "${workspaceFolder}/template/tools/build-preview.ps1",
+                    "-Out", "build"
+                ]
+            },
+            "linux": {
+                "command": "bash",
+                "args": [
+                    "${workspaceFolder}/template/tools/build-preview.sh",
+                    "-o", "build"
+                ]
+            },
+            "osx": {
+                "command": "bash",
+                "args": [
+                    "${workspaceFolder}/template/tools/build-preview.sh",
+                    "-o", "build"
                 ]
             },
             "group": "build",
