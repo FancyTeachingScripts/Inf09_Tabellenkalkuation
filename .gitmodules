@@ -2,3 +2,4 @@
 	path = template
 	url = git@github.com:FancyTeachingScripts/FancyScript.git
 	branch = main
+	update = merge

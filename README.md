@@ -1,34 +1,53 @@
-Mehr Infos unter https://valentin-herrmann.com/inf09_tabkalk/
+# Für Consumer 
+Infos und Dokumentation der Skripte und Veröffentlichung der fertigen PDFs in allen Versionen unter: https://valentin-herrmann.com/fts/
 
-## Architektur auf einen Blick (für Menschen & LLMs)
 
-Die gemeinsame Vorlage (`sty/`, Build-Tools, CI-Workflows) liegt **nicht** in
-diesem Repo, sondern als Git-**Submodul** unter `template/`, gepinnt auf
-[`FancyTeachingScripts/FancyScript`](https://github.com/FancyTeachingScripts/FancyScript).
-Dieses Repo enthält nur die eigenen Inhalte: `main.tex`, `selected.tex`,
-`_Aufgaben/`, `_Hefteintraege/`, `_Skripte/`.
+# Für Creator
 
-- **Bauen:** `tectonic -Z search-path=. -Z search-path=template -Z search-path=template/sty/moloch -Z continue-on-errors -o build main.tex`
-  (oder die VS-Code-Tasks in `.vscode/tasks.json`). Reihenfolge des
-  Suchpfads ist wichtig – `.` **muss vor** `template` stehen, siehe
-  [FancyScript-README](https://github.com/FancyTeachingScripts/FancyScript#kompilieren).
-- **Alle Varianten bauen:** VS-Code-Task `build-all-main-tex`
-  (→ `template/tools/build-parallel.sh`), sehr leistungsintensiv.
-- **Vorlage aktualisieren:** aus dem Submodul heraus entwickeln
-  (`$EDITOR template/sty/...`, `template/tools/build.sh main.tex` zum
-  Testen), dann `cd template && git commit && git push`, danach in diesem
-  Repo `git add template && git commit` um den neuen Stand zu pinnen. Details
-  und der volle Ablauf stehen im [FancyScript-README](https://github.com/FancyTeachingScripts/FancyScript).
-- **CI:** `.github/workflows/Release.yml` / `PR-Preview.yml` sind
-  ~10-zeilige Aufrufe der wiederverwendbaren Workflows in FancyScript
-  (`website_path: inf09_tabkalk`). PR-Previews landen als Kommentar mit
-  Links auf die kompilierten PDFs.
+## Einrichtung (VS Code)
 
-Nie wird die Vorlage gemergt, nur der Commit-Zeiger bewegt – alte Skripte
-bleiben stabil, auch wenn sich die Vorlage weiterentwickelt.
+1. Repo klonen, in VS Code öffnen.
+2. Terminal (`` Strg+` ``): `./init.sh` (einmalig).
+3. **Run and Debug** (F5) 
+   - **MAIN** baut `main.tex` (→ `build/`)
+   - **PREVIEW** baut die PR-Vorschau-Auswahl, also leeres Skript, Musterlöung, Präsentation hell und dunkel (→ `build/`), 
+   - **ALL** baut alle Varianten (→ `pdfs/`; dauert lange: ca. 60 PDFs).
 
-## Sonstiges
+## Wo kommt was hin?
 
-Im Repo befindet sich ein VS-Code Skript zum Kompilieren der main.tex und eines zum Kompilieren aller Dateien in ./main/  (Achtung, sehr leistungsintensiv). Letztere werden auf Github auch automatisch gebaut, sobald ein Release erstellt wird.
+- `_Skripte/` – Unterrichtsskripte, ein `.tex` pro (Teil)Skript/Kurs/Schuljahr/....
+- `_Aufgaben/` – Arbeitsblätter/Aufgaben.
+- `_Hefteintraege/` – Hefteinträge.
+- Bilder/Anhänge jeweils im `img/`-Unterordner der zugehörigen Datei.
+- `selected.tex` – legt fest, was `main.tex` tatsächlich baut (i.d.R. ein `\input{_Skripte/...}`).
 
-Wer auch seine Skripte [hier](https://github.com/FancyTeachingScripts) gesammelt zur Verfügung stellen möchte, kann mich jederzeit für entsprechende Berechtigungen kontaktieren.
+## Veröffentlichung (GitHub)
+
+`.github/workflows/Release.yml` ruft den gemeinsamen Release-Workflow aus
+FancyScript auf und liest den Zielpfad auf valentin-herrmann.com aus der
+Repository-Variable `WEBSITE_PATH`.
+
+Einmalig pro Repo setzen — *Settings → Secrets and variables → Actions →
+Variables → New repository variable*:
+
+| Name | Wert (Beispiel) |
+|---|---|
+| `WEBSITE_PATH` | `inf10_datenbanken` |
+
+Ohne diese Variable landet der Release im leeren Pfad. Per CLI:
+`gh variable set WEBSITE_PATH --body inf09_oop --repo FancyTeachingScripts/Inf09_OOP`
+
+## Terminal (ohne VS Code)
+
+```bash
+# einmalig repo und submodule initialisieren
+./init.sh   
+
+# baut main.tex als PDF und speichert es in ./build/
+tectonic \
+-Z search-path=. \
+-Z search-path=template \
+-Z search-path=template/sty/moloch \
+-Z continue-on-errors \
+-o build main.tex 
+```

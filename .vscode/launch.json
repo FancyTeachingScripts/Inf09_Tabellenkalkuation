@@ -7,27 +7,41 @@
         {
             "type": "node",
             "request": "launch",
-            "name": "MAIN (Tectonic)",
+            "name": "MAIN",
             "program": "${workspaceFolder}/.vscode/dummy.js",
-            "args": [],
             "preLaunchTask": "compile-single-tex",
-            "console": "integratedTerminal"
+            "console": "internalConsole",
+            "internalConsoleOptions": "neverOpen",
+            "sourceMaps": false,
+            "outFiles": [],
+            "autoAttachChildProcesses": false,
+            "skipFiles": ["<node_internals>/**"]
         },
         {
             "type": "node",
             "request": "launch",
-            "name": "ALL (./main/*.tex)",
+            "name": "ALL",
             "program": "${workspaceFolder}/.vscode/dummy.js",
-            "args": [],
             "preLaunchTask": "build-all-main-tex",
-            "console": "integratedTerminal"
-        }
-    ],
-    "inputs": [
+            "console": "internalConsole",
+            "internalConsoleOptions": "neverOpen",
+            "sourceMaps": false,
+            "outFiles": [],
+            "autoAttachChildProcesses": false,
+            "skipFiles": ["<node_internals>/**"]
+        },
         {
-            "id": "texFile",
-            "type": "promptString",
-            "description": "Enter the path to the main .tex file to compile (e.g., main.tex)"
+            "type": "node",
+            "request": "launch",
+            "name": "PREVIEW",
+            "program": "${workspaceFolder}/.vscode/dummy.js",
+            "preLaunchTask": "build-pr-preview-pdfs",
+            "console": "internalConsole",
+            "internalConsoleOptions": "neverOpen",
+            "sourceMaps": false,
+            "outFiles": [],
+            "autoAttachChildProcesses": false,
+            "skipFiles": ["<node_internals>/**"]
         }
     ]
 }
